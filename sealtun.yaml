@@ -1,0 +1,6 @@
+version: v1
+tunnels:
+  - name: model-rumble
+    protocol: https
+    localPort: 5188
+    ttl: 24h

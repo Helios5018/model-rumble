@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>战斗音效试听 · Model Rumble</title>
+<style>
+:root{color-scheme:dark;font-family:Inter,"PingFang SC",system-ui,sans-serif;background:#101319;color:#f1f3f6}*{box-sizing:border-box}body{margin:0}main{max-width:1120px;margin:auto;padding:48px 24px 80px}.eyebrow{color:#acd98a;font-size:12px;letter-spacing:.2em}h1{font-size:clamp(30px,5vw,52px);letter-spacing:-.04em;margin:14px 0}p{color:#a8afbc;line-height:1.8;max-width:780px}a{color:#acd98a}header{margin-bottom:32px}.toolbar{display:flex;gap:10px;flex-wrap:wrap;padding:20px;background:#1a2029;border:1px solid #303846;border-radius:16px;align-items:center}.toolbar span{font-size:13px;color:#b6becc;margin-right:auto}button{font:inherit;color:inherit;background:#252d39;border:1px solid #465266;padding:11px 16px;border-radius:9px;cursor:pointer}button:hover{background:#364252}button:focus-visible{outline:2px solid #c1ef9e;outline-offset:3px}button.active{border-color:#c1ef9e;background:#344632}.primary{background:#bee49e;color:#152011;border-color:#bee49e}.primary:hover{background:#d1f4b4}#status{min-height:28px;margin:16px 0;font-size:14px;color:#c1ef9e}#cards{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.card{background:#191e26;border:1px solid #303846;border-radius:16px;padding:24px}.card-head{display:flex;align-items:baseline;gap:12px}.number{color:#667489;font:14px monospace}h2{margin:0;font-size:23px}.card p{font-size:14px;margin:10px 0 22px;min-height:25px}.takes{display:flex;gap:8px;flex-wrap:wrap}.takes button{flex:1;white-space:nowrap;font-size:14px}.takes .old{border-style:dashed;color:#a8afbc}.footnote{margin-top:28px;font-size:13px}.level{display:flex;align-items:center;gap:10px;font-size:14px;margin:16px 0}input{accent-color:#bee49e;width:150px}@media(max-width:680px){#cards{grid-template-columns:1fr}main{padding:28px 16px}.toolbar button{flex:1}.toolbar span{flex-basis:100%}}
+</style>
+</head>
+<body><main>
+<header><div class="eyebrow">MODEL RUMBLE / SOUND LAB 01</div><h1>每一拳，都听得见。</h1><p>六类战斗音效，每类三个新版本。单音试听统一峰值，方便比较音色；连段按游戏音量模拟，比较轻重和节奏。闪避、反击的旧版播放实际游戏曾使用的声音。</p><a href="/">进入游戏 ↗</a></header>
+<div class="toolbar"><span>同一段动作：轻击 × 3 → 格挡 → 闪避 → 反击 → 重击 → KO</span><button id="old-combo">旧版连段</button><button id="new-combo" class="primary">新版连段</button><button id="stop">停止</button></div>
+<label class="level">试听音量 <input id="volume" type="range" min="0" max="100" value="65"><output id="level">65%</output></label>
+<div id="status" role="status" aria-live="polite">点击任意按钮开始试听</div><div id="cards"></div>
+<p class="footnote">新版采用 ElevenLabs 生成素材，经过起音与尾音处理；重击和 KO 叠加短低频。游戏会轮换版本，避免连续重复同一条音效。试听页只播放音效，不播放背景音乐。</p>
+</main>
+<script>
+const groups = [
+  {name:'hit_light',label:'轻击',desc:'短促、清脆，连击时保留空隙。',volume:.55,old:'hit_light'},
+  {name:'hit_heavy',label:'重击',desc:'清晰撞击，加上短低频重量。',volume:.7,old:'hit_heavy'},
+  {name:'shield',label:'格挡',desc:'坚实的阻挡感，与打中身体区分。',volume:.46,old:'shield'},
+  {name:'counter',label:'反击',desc:'明亮的招架提示，突出成功反击。',volume:.65,old:'shield'},
+  {name:'dodge',label:'闪避',desc:'紧凑的掠过声，给命中声音留位置。',volume:.36,old:'swing'},
+  {name:'ko',label:'KO',desc:'冲击与数字碎裂，为一条命收尾。',volume:.75,old:'ko'}
+];
+const cards = document.querySelector('#cards'), status = document.querySelector('#status');
+for (const [i,g] of groups.entries()) {
+  const card = document.createElement('section'); card.className='card';
+  card.innerHTML=`<div class="card-head"><span class="number">0${i+1}</span><h2>${g.label}</h2></div><p>${g.desc}</p><div class="takes"><button class="old" data-name="${g.name}" data-take="0" aria-label="${g.label} 旧版">旧版</button>${[1,2,3].map(v=>`<button data-name="${g.name}" data-take="${v}" aria-label="${g.label} 新版 ${v}">新版 ${v}</button>`).join('')}</div>`;
+  cards.append(card);
+}
+let ctx, master, generation=0, voices=[];
+const buffers=new Map();
+async function unlock() {
+  if (!ctx) {
+    ctx=new AudioContext(); master=ctx.createGain();
+    const limiter=ctx.createDynamicsCompressor();limiter.threshold.value=-8;limiter.knee.value=6;limiter.ratio.value=12;limiter.attack.value=.003;limiter.release.value=.12;
+    master.connect(limiter).connect(ctx.destination); master.gain.value=Number(document.querySelector('#volume').value)/100*.85;
+  }
+  await ctx.resume();
+}
+function stop() {generation++;for(const voice of voices){try{voice.stop()}catch{}}voices=[];document.querySelectorAll('.active').forEach(b=>b.classList.remove('active'));}
+async function load(group,take) {
+  const url=take?`assets/audio/combat-v2/${group.name}_${take}.wav`:`assets/audio/${group.old}.mp3`;
+  if(!buffers.has(url)) buffers.set(url,fetch(url).then(r=>{if(!r.ok)throw Error(`音效加载失败：${r.status}`);return r.arrayBuffer()}).then(b=>ctx.decodeAudioData(b)));
+  return buffers.get(url);
+}
+function play(buffer,volume,when,normalize=false) {
+  const voice=ctx.createBufferSource(), gain=ctx.createGain();voice.buffer=buffer;
+  let peak=0;if(normalize){for(let c=0;c<buffer.numberOfChannels;c++)for(const value of buffer.getChannelData(c))peak=Math.max(peak,Math.abs(value));}
+  gain.gain.value=volume*(normalize?.631/Math.max(peak,.001):1);
+  voice.connect(gain).connect(master);voice.start(when);voices.push(voice);
+  voice.onended=()=>{voices=voices.filter(v=>v!==voice);voice.disconnect();gain.disconnect()};
+}
+document.querySelectorAll('[data-take]').forEach(button=>button.addEventListener('click',async()=>{
+  stop();const token=generation;button.classList.add('active');status.textContent='正在加载…';
+  try{await unlock();const group=groups.find(g=>g.name===button.dataset.name),take=Number(button.dataset.take),buffer=await load(group,take);if(token!==generation)return;play(buffer,.65,ctx.currentTime,true);status.textContent=`${group.label} · ${take?'新版 '+take:'旧版'} · ${buffer.duration.toFixed(2)} 秒`;}catch(error){status.textContent=error.message;}
+}));
+async function combo(modern) {
+  stop();const token=generation;status.textContent='正在准备连段…';
+  document.querySelector(modern?'#new-combo':'#old-combo').classList.add('active');
+  try{
+    await unlock();
+    const sequence=[['hit_light',0],['hit_light',.22],['hit_light',.44],['shield',.85],['dodge',1.2],['counter',1.65],['hit_heavy',2.1],['ko',2.85]];
+    const clips=await Promise.all(sequence.map(async([name,time],i)=>{const group=groups.find(g=>g.name===name);return{group,time,buffer:await load(group,modern?i%3+1:0)}}));
+    if(token!==generation)return;const start=ctx.currentTime+.05;
+    for(const {group,time,buffer} of clips) play(buffer,modern?group.volume:group.name==='dodge'?.16:.3,start+time);
+    status.textContent=modern?'正在播放新版连段':'正在播放旧版连段';
+  }catch(error){status.textContent=error.message;}
+}
+document.querySelector('#old-combo').onclick=()=>combo(false);
+document.querySelector('#new-combo').onclick=()=>combo(true);
+document.querySelector('#stop').onclick=()=>{stop();status.textContent='已停止';};
+document.querySelector('#volume').oninput=e=>{document.querySelector('#level').value=e.target.value+'%';if(master)master.gain.value=e.target.value/100*.85;};
+document.addEventListener('visibilitychange',()=>{if(document.hidden){stop();status.textContent='已暂停试听';}});
+</script></body></html>

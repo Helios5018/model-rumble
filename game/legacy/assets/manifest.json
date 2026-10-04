@@ -1,0 +1,553 @@
+{
+  "characters": {
+    "claude": {
+      "anims": {
+        "idle": {
+          "file": "assets/characters/claude/idle.png",
+          "frames": 4,
+          "frameWidth": 128,
+          "frameHeight": 128,
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "run": {
+          "file": "assets/characters/claude/run.png",
+          "frames": 4,
+          "frameWidth": 128,
+          "frameHeight": 128,
+          "frameRate": 10,
+          "repeat": -1
+        },
+        "jump": {
+          "file": "assets/characters/claude/jump.png",
+          "frames": 4,
+          "frameWidth": 128,
+          "frameHeight": 128,
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "light": {
+          "file": "assets/characters/claude/light.png",
+          "frames": 4,
+          "frameWidth": 128,
+          "frameHeight": 128,
+          "frameRate": 14,
+          "repeat": 0
+        },
+        "heavy": {
+          "file": "assets/characters/claude/heavy.png",
+          "frames": 4,
+          "frameWidth": 128,
+          "frameHeight": 128,
+          "frameRate": 12,
+          "repeat": 0
+        },
+        "hurt": {
+          "file": "assets/characters/claude/hurt.png",
+          "frames": 4,
+          "frameWidth": 128,
+          "frameHeight": 128,
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "portrait": "assets/ui/portrait_claude.png"
+    },
+    "gemini": {
+      "anims": {
+        "idle": {
+          "file": "assets/characters/gemini/idle.png",
+          "frames": 4,
+          "frameWidth": 128,
+          "frameHeight": 128,
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "run": {
+          "file": "assets/characters/gemini/run.png",
+          "frames": 4,
+          "frameWidth": 128,
+          "frameHeight": 128,
+          "frameRate": 10,
+          "repeat": -1
+        },
+        "jump": {
+          "file": "assets/characters/gemini/jump.png",
+          "frames": 4,
+          "frameWidth": 128,
+          "frameHeight": 128,
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "light": {
+          "file": "assets/characters/gemini/light.png",
+          "frames": 4,
+          "frameWidth": 128,
+          "frameHeight": 128,
+          "frameRate": 14,
+          "repeat": 0
+        },
+        "heavy": {
+          "file": "assets/characters/gemini/heavy.png",
+          "frames": 4,
+          "frameWidth": 128,
+          "frameHeight": 128,
+          "frameRate": 12,
+          "repeat": 0
+        },
+        "hurt": {
+          "file": "assets/characters/gemini/hurt.png",
+          "frames": 4,
+          "frameWidth": 128,
+          "frameHeight": 128,
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "portrait": "assets/ui/portrait_gemini.png"
+    },
+    "deepseek": {
+      "anims": {
+        "idle": {
+          "file": "assets/characters/deepseek/idle.png",
+          "frames": 4,
+          "frameWidth": 128,
+          "frameHeight": 128,
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "run": {
+          "file": "assets/characters/deepseek/run.png",
+          "frames": 4,
+          "frameWidth": 128,
+          "frameHeight": 128,
+          "frameRate": 10,
+          "repeat": -1
+        },
+        "jump": {
+          "file": "assets/characters/deepseek/jump.png",
+          "frames": 4,
+          "frameWidth": 128,
+          "frameHeight": 128,
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "light": {
+          "file": "assets/characters/deepseek/light.png",
+          "frames": 4,
+          "frameWidth": 128,
+          "frameHeight": 128,
+          "frameRate": 14,
+          "repeat": 0
+        },
+        "heavy": {
+          "file": "assets/characters/deepseek/heavy.png",
+          "frames": 4,
+          "frameWidth": 128,
+          "frameHeight": 128,
+          "frameRate": 12,
+          "repeat": 0
+        },
+        "hurt": {
+          "file": "assets/characters/deepseek/hurt.png",
+          "frames": 4,
+          "frameWidth": 128,
+          "frameHeight": 128,
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "portrait": "assets/ui/portrait_deepseek.png"
+    },
+    "gpt": {
+      "anims": {
+        "idle": {
+          "file": "assets/characters/gpt/idle.png",
+          "frames": 4,
+          "frameWidth": 128,
+          "frameHeight": 128,
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "run": {
+          "file": "assets/characters/gpt/run.png",
+          "frames": 4,
+          "frameWidth": 128,
+          "frameHeight": 128,
+          "frameRate": 10,
+          "repeat": -1
+        },
+        "jump": {
+          "file": "assets/characters/gpt/jump.png",
+          "frames": 4,
+          "frameWidth": 128,
+          "frameHeight": 128,
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "light": {
+          "file": "assets/characters/gpt/light.png",
+          "frames": 4,
+          "frameWidth": 128,
+          "frameHeight": 128,
+          "frameRate": 14,
+          "repeat": 0
+        },
+        "heavy": {
+          "file": "assets/characters/gpt/heavy.png",
+          "frames": 4,
+          "frameWidth": 128,
+          "frameHeight": 128,
+          "frameRate": 12,
+          "repeat": 0
+        },
+        "hurt": {
+          "file": "assets/characters/gpt/hurt.png",
+          "frames": 4,
+          "frameWidth": 128,
+          "frameHeight": 128,
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "portrait": "assets/ui/portrait_gpt.png"
+    },
+    "qwen": {
+      "anims": {
+        "idle": {
+          "file": "assets/characters/qwen/idle.png",
+          "frames": 4,
+          "frameWidth": 128,
+          "frameHeight": 128,
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "run": {
+          "file": "assets/characters/qwen/run.png",
+          "frames": 4,
+          "frameWidth": 128,
+          "frameHeight": 128,
+          "frameRate": 10,
+          "repeat": -1
+        },
+        "jump": {
+          "file": "assets/characters/qwen/jump.png",
+          "frames": 4,
+          "frameWidth": 128,
+          "frameHeight": 128,
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "light": {
+          "file": "assets/characters/qwen/light.png",
+          "frames": 4,
+          "frameWidth": 128,
+          "frameHeight": 128,
+          "frameRate": 14,
+          "repeat": 0
+        },
+        "heavy": {
+          "file": "assets/characters/qwen/heavy.png",
+          "frames": 4,
+          "frameWidth": 128,
+          "frameHeight": 128,
+          "frameRate": 12,
+          "repeat": 0
+        },
+        "hurt": {
+          "file": "assets/characters/qwen/hurt.png",
+          "frames": 4,
+          "frameWidth": 128,
+          "frameHeight": 128,
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "portrait": "assets/ui/portrait_qwen.png"
+    },
+    "glm": {
+      "anims": {
+        "idle": {
+          "file": "assets/characters/glm/idle.png",
+          "frames": 4,
+          "frameWidth": 128,
+          "frameHeight": 128,
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "run": {
+          "file": "assets/characters/glm/run.png",
+          "frames": 4,
+          "frameWidth": 128,
+          "frameHeight": 128,
+          "frameRate": 10,
+          "repeat": -1
+        },
+        "jump": {
+          "file": "assets/characters/glm/jump.png",
+          "frames": 4,
+          "frameWidth": 128,
+          "frameHeight": 128,
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "light": {
+          "file": "assets/characters/glm/light.png",
+          "frames": 4,
+          "frameWidth": 128,
+          "frameHeight": 128,
+          "frameRate": 14,
+          "repeat": 0
+        },
+        "heavy": {
+          "file": "assets/characters/glm/heavy.png",
+          "frames": 4,
+          "frameWidth": 128,
+          "frameHeight": 128,
+          "frameRate": 12,
+          "repeat": 0
+        },
+        "hurt": {
+          "file": "assets/characters/glm/hurt.png",
+          "frames": 4,
+          "frameWidth": 128,
+          "frameHeight": 128,
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "portrait": "assets/ui/portrait_glm.png"
+    }
+  },
+  "fx": {
+    "slash_fx": {
+      "file": "assets/fx/slash_fx.png",
+      "frames": 4,
+      "frameWidth": 128,
+      "frameHeight": 128,
+      "frameRate": 20
+    },
+    "impact_fx": {
+      "file": "assets/fx/impact_fx.png",
+      "frames": 4,
+      "frameWidth": 128,
+      "frameHeight": 128,
+      "frameRate": 20
+    },
+    "shield_fx": {
+      "file": "assets/fx/shield_fx.png",
+      "frames": 4,
+      "frameWidth": 128,
+      "frameHeight": 128,
+      "frameRate": 15
+    },
+    "beam_fx": {
+      "file": "assets/fx/beam_fx.png",
+      "frames": 4,
+      "frameWidth": 128,
+      "frameHeight": 128,
+      "frameRate": 18
+    },
+    "wave_fx": {
+      "file": "assets/fx/wave_fx.png",
+      "frames": 4,
+      "frameWidth": 128,
+      "frameHeight": 128,
+      "frameRate": 15
+    },
+    "spark_fx": {
+      "file": "assets/fx/spark_fx.png",
+      "frames": 4,
+      "frameWidth": 128,
+      "frameHeight": 128,
+      "frameRate": 20
+    },
+    "ultimate_flash_fx": {
+      "file": "assets/fx/ultimate_flash_fx.png",
+      "frames": 4,
+      "frameWidth": 128,
+      "frameHeight": 128,
+      "frameRate": 15
+    },
+    "claude_slash_fx": {
+      "file": "assets/fx/claude_slash_fx.png",
+      "frames": 4,
+      "frameWidth": 128,
+      "frameHeight": 128,
+      "frameRate": 20
+    },
+    "claude_impact_fx": {
+      "file": "assets/fx/claude_impact_fx.png",
+      "frames": 4,
+      "frameWidth": 128,
+      "frameHeight": 128,
+      "frameRate": 20
+    },
+    "claude_shield_fx": {
+      "file": "assets/fx/claude_shield_fx.png",
+      "frames": 4,
+      "frameWidth": 128,
+      "frameHeight": 128,
+      "frameRate": 15
+    },
+    "claude_ultimate_fx": {
+      "file": "assets/fx/claude_ultimate_fx.png",
+      "frames": 4,
+      "frameWidth": 128,
+      "frameHeight": 128,
+      "frameRate": 15
+    },
+    "gemini_spark_fx": {
+      "file": "assets/fx/gemini_spark_fx.png",
+      "frames": 4,
+      "frameWidth": 128,
+      "frameHeight": 128,
+      "frameRate": 20
+    },
+    "gemini_dash_fx": {
+      "file": "assets/fx/gemini_dash_fx.png",
+      "frames": 4,
+      "frameWidth": 128,
+      "frameHeight": 128,
+      "frameRate": 18
+    },
+    "gemini_wave_fx": {
+      "file": "assets/fx/gemini_wave_fx.png",
+      "frames": 4,
+      "frameWidth": 128,
+      "frameHeight": 128,
+      "frameRate": 15
+    },
+    "gemini_ultimate_fx": {
+      "file": "assets/fx/gemini_ultimate_fx.png",
+      "frames": 4,
+      "frameWidth": 128,
+      "frameHeight": 128,
+      "frameRate": 15
+    },
+    "deepseek_slash_fx": {
+      "file": "assets/fx/deepseek_slash_fx.png",
+      "frames": 4,
+      "frameWidth": 128,
+      "frameHeight": 128,
+      "frameRate": 20
+    },
+    "deepseek_buff_fx": {
+      "file": "assets/fx/deepseek_buff_fx.png",
+      "frames": 4,
+      "frameWidth": 128,
+      "frameHeight": 128,
+      "frameRate": 15
+    },
+    "deepseek_ultimate_fx": {
+      "file": "assets/fx/deepseek_ultimate_fx.png",
+      "frames": 4,
+      "frameWidth": 128,
+      "frameHeight": 128,
+      "frameRate": 15
+    },
+    "gpt_slash_fx": {
+      "file": "assets/fx/gpt_slash_fx.png",
+      "frames": 4,
+      "frameWidth": 128,
+      "frameHeight": 128,
+      "frameRate": 20
+    },
+    "gpt_code_fx": {
+      "file": "assets/fx/gpt_code_fx.png",
+      "frames": 4,
+      "frameWidth": 128,
+      "frameHeight": 128,
+      "frameRate": 20
+    },
+    "gpt_dash_fx": {
+      "file": "assets/fx/gpt_dash_fx.png",
+      "frames": 4,
+      "frameWidth": 128,
+      "frameHeight": 128,
+      "frameRate": 18
+    },
+    "gpt_shield_fx": {
+      "file": "assets/fx/gpt_shield_fx.png",
+      "frames": 4,
+      "frameWidth": 128,
+      "frameHeight": 128,
+      "frameRate": 15
+    },
+    "gpt_ultimate_fx": {
+      "file": "assets/fx/gpt_ultimate_fx.png",
+      "frames": 4,
+      "frameWidth": 128,
+      "frameHeight": 128,
+      "frameRate": 15
+    },
+    "qwen_dart_fx": {
+      "file": "assets/fx/qwen_dart_fx.png",
+      "frames": 4,
+      "frameWidth": 128,
+      "frameHeight": 128,
+      "frameRate": 20
+    },
+    "qwen_impact_fx": {
+      "file": "assets/fx/qwen_impact_fx.png",
+      "frames": 4,
+      "frameWidth": 128,
+      "frameHeight": 128,
+      "frameRate": 20
+    },
+    "qwen_buff_fx": {
+      "file": "assets/fx/qwen_buff_fx.png",
+      "frames": 4,
+      "frameWidth": 128,
+      "frameHeight": 128,
+      "frameRate": 15
+    },
+    "qwen_wave_fx": {
+      "file": "assets/fx/qwen_wave_fx.png",
+      "frames": 4,
+      "frameWidth": 128,
+      "frameHeight": 128,
+      "frameRate": 15
+    },
+    "qwen_ultimate_fx": {
+      "file": "assets/fx/qwen_ultimate_fx.png",
+      "frames": 4,
+      "frameWidth": 128,
+      "frameHeight": 128,
+      "frameRate": 15
+    },
+    "glm_slash_fx": {
+      "file": "assets/fx/glm_slash_fx.png",
+      "frames": 4,
+      "frameWidth": 128,
+      "frameHeight": 128,
+      "frameRate": 20
+    },
+    "glm_seal_fx": {
+      "file": "assets/fx/glm_seal_fx.png",
+      "frames": 4,
+      "frameWidth": 128,
+      "frameHeight": 128,
+      "frameRate": 20
+    },
+    "glm_shield_fx": {
+      "file": "assets/fx/glm_shield_fx.png",
+      "frames": 4,
+      "frameWidth": 128,
+      "frameHeight": 128,
+      "frameRate": 15
+    },
+    "glm_ultimate_fx": {
+      "file": "assets/fx/glm_ultimate_fx.png",
+      "frames": 4,
+      "frameWidth": 128,
+      "frameHeight": 128,
+      "frameRate": 15
+    }
+  },
+  "stage": {
+    "background": "assets/stages/benchmark_arena.png",
+    "platformMain": "assets/stages/platform_main.png",
+    "platformFloat": "assets/stages/platform_float.png"
+  }
+}
