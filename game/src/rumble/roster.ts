@@ -49,14 +49,14 @@ export const ROSTER: Character[] = [
     id: "claude",
     name: "Claude",
     title: "方块小克劳德",
-    model: "Opus 5",
+    model: "Opus 5.5",
     color: "#ee9875",
     accent: "#ffdfb8",
     role: "防守反击",
     description:
       "四条小短腿，方方正正的原则。先说我不能帮助你，再用一套严谨的流程把你送出场。",
-    news: "Opus 5：复杂推理、代理任务与可调思考投入。",
-    source: "https://www.anthropic.com/news/claude-opus-5",
+    news: "Opus 5.5：自适应思考、长程代理任务与知识工作。",
+    source: "https://www.anthropic.com/claude-opus-5-5",
     stats: [5, 9, 9, 6],
     skills: ["我不能帮助你", "让我再想想", "四脚 · 规则践踏"],
     mechanics: [
@@ -89,15 +89,15 @@ export const ROSTER: Character[] = [
     id: "gemini",
     name: "Gemini",
     title: "双子哈基米",
-    model: "3.7 Flash",
+    model: "3.8 Flash",
     color: "#9b9bff",
     accent: "#e7cfff",
     role: "高速突袭",
     description:
       "哈基米，哈基米，哈基米。脑内单曲循环，场上双猫同频；Flash 的速度，用来踩最洗脑的拍子。",
-    news: "Gemini 3.7 Flash：效率、开发体验与多模态能力。",
+    news: "Gemini 3.8 Flash：强化编码、长程代理与多步推理。",
     source:
-      "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-3-7-flash/",
+      "https://blog.google/innovation-and-ai/models-and-research/gemini-models/3-8-flash-and-3-8-flash-cyber/",
     stats: [10, 4, 6, 8],
     skills: ["哈！基！米！", "双子猫猫拳", "曼波 · 多模态蹦迪"],
     mechanics: [
@@ -110,14 +110,14 @@ export const ROSTER: Character[] = [
     id: "qwen",
     name: "Qwen",
     title: "千问小熊",
-    model: "3.8 · LiveTranslate",
+    model: "3.8 · Omni-Flash",
     color: "#b58aff",
     accent: "#eddaff",
     role: "分身协同",
     description:
       "白 T 恤，严肃眉头，软乎乎的熊。千问不如一熊，多语言都能听懂，熊掌落下也不需要翻译。",
-    news: "Qwen 3.8 LiveTranslate：流式翻译与说话人识别。",
-    source: "https://qwen.ai/blog?id=qwen3.8-livetranslate",
+    news: "Qwen3.8 Omni-Flash：原生音视频理解与工具调用；保留 LiveTranslate 多语言梗。",
+    source: "https://qwen.ai/blog?id=qwen3.8-omni-flash",
     stats: [8, 5, 7, 9],
     skills: ["千问不如一熊", "全世界都说熊声", "开源 · 熊多力量大"],
     mechanics: [
@@ -130,14 +130,14 @@ export const ROSTER: Character[] = [
     id: "grok",
     name: "Grok",
     title: "火星马老板",
-    model: "4.6 · Grok Bot",
+    model: "4.7 · Grok Bot",
     color: "#e6eaf5",
     accent: "#8cbdff",
     role: "过载爆发",
     description:
       "黑 T 恤，火星梦，发布会永不散场。火箭可以炸，热搜不能停——下一次一定成功回收。",
-    news: "Grok 4.6 与 Grok Bot：编码、代理与持续任务。",
-    source: "https://x.ai/news/grok-4-6",
+    news: "Grok 4.7：编码、代理任务与知识工作；Grok Bot 持续执行。",
+    source: "https://docs.x.ai/developers/grok-4-7",
     stats: [6, 8, 10, 4],
     skills: ["星舰试射", "推文治公司", "筷子夹 · 成功回收"],
     mechanics: [
@@ -176,7 +176,7 @@ export const ROSTER: Character[] = [
     role: "工程守备",
     description:
       "这个世界，终究是手搓的。橙色小牛带着侧目走来；可以绊倒，但代码必须站起来。",
-    news: "GLM-5.3：开放权重、编码和安全研究能力。",
+    news: "GLM-5.3：强化复杂编码与长程任务，保留开放权重和安全研究能力。",
     source: "https://huggingface.co/zai-org/GLM-5.3",
     stats: [4, 10, 8, 7],
     skills: ["只能手搓，请见谅", "不是哥们 · 绊倒了", "中国牛会飞"],
@@ -208,4 +208,4 @@ export const ROSTER: Character[] = [
   },
 ];
 export const character = (id: FighterId) => ROSTER.find((c) => c.id === id)!;
-export const RESEARCH_DATE = "2026.09.20";
+export const RESEARCH_DATE = "2026.10.04";

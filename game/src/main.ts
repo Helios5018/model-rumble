@@ -445,7 +445,7 @@ requestAnimationFrame(frame);
     selected,
     opponent,
     difficulty,
-    visuals: world.avatars.map((a, i) => ({ player: i + 1, color: fighterAppearance([selected, opponent], i).color, meleeVisible: a.root.getObjectByName(`melee-${i ? opponent : selected}`)?.visible, bodyX: a.body.position.x, bodyLean: a.body.rotation.z })),
+    visuals: world.avatars.map((a, i) => ({ player: i + 1, badge: !!a.root.getObjectByName(`player-${i + 1}`), color: fighterAppearance([selected, opponent], i).color, meleeVisible: a.root.getObjectByName(`melee-${i ? opponent : selected}`)?.visible, bodyX: a.body.position.x, bodyLean: a.body.rotation.z })),
     renderer: "Three.js / WebGL2",
     audio: sound.snapshot(),
     fps: world.fps,

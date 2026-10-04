@@ -4,6 +4,8 @@ import { Match, emptyInput } from "../src/rumble/simulation.ts";
 import { ROSTER } from "../src/rumble/roster.ts";
 import { cueForEvent } from "../src/rumble/audio.ts";
 import type { FighterId } from "../src/rumble/roster.ts";
+import { DIFFICULTIES } from "../src/rumble/difficulty.ts";
+import type { Difficulty } from "../src/rumble/difficulty.ts";
 const ready = (id: FighterId = "deepseek", second: FighterId = "claude") => {
   const m = new Match([id, second]);
   m.countdown = 0;
@@ -221,7 +223,7 @@ test("Kimi charges empowered strike and teleports behind target", () => {
   assert.equal(f.empowered, false);
 });
 test("practice mode supplies energy, keeps dummy still and never ends on ring-out", () => {
-  const m = new Match(["deepseek", "claude"], "normal", true);
+  const m = new Match(["deepseek", "claude"], "medium", true);
   m.countdown = 0;
   assert.deepEqual(m.ai(1), emptyInput());
   m.fighters[0].energy = 0;
@@ -234,11 +236,13 @@ test("practice mode supplies energy, keeps dummy still and never ends on ring-ou
   assert.equal(m.fighters[1].stocks, 3);
   assert.equal(m.winner, null);
 });
-test("all 81 CPU matchups resolve with finite state, hits and no soft lock", () => {
+test("all 324 CPU matchups across four difficulties resolve with finite state and hits", () => {
   const summary = [];
+  for (const difficulty of Object.keys(DIFFICULTIES) as Difficulty[])
   for (const a of ROSTER)
     for (const b of ROSTER) {
-      const m = ready(a.id, b.id);
+      const m = new Match([a.id, b.id], difficulty);
+      m.countdown = 0;
       for (let i = 0; i < 11000 && m.winner === null; i++) {
         m.tick(1 / 60, [m.ai(0), m.ai(1)]);
         m.events = [];
@@ -261,7 +265,7 @@ test("all 81 CPU matchups resolve with finite state, hits and no soft lock", () 
       });
     }
   console.log(
-    "81 matchup sweep:",
+    "324 matchup sweep:",
     JSON.stringify({
       minSeconds: Math.min(...summary.map((x) => x.seconds)),
       maxSeconds: Math.max(...summary.map((x) => x.seconds)),
@@ -269,4 +273,60 @@ test("all 81 CPU matchups resolve with finite state, hits and no soft lock", () 
       totalHits: summary.reduce((s, x) => s + x.hits, 0),
     }),
   );
+});
+
+test("CPU tiers improve aggregate mirror-match results without stat bonuses", () => {
+  const scores: number[] = [];
+  for (const level of Object.keys(DIFFICULTIES) as Difficulty[]) {
+    let wins = 0;
+    for (const c of ROSTER) for (let seed = 1; seed <= 8; seed++) for (const side of [0, 1]) {
+      const m = new Match([c.id, c.id], level, false, seed * 7919);
+      assert.deepEqual(m.fighters[0].data.stats, m.fighters[1].data.stats);
+      assert.notEqual(m.fighters[0].data.color, m.fighters[1].data.color);
+      assert.equal(c.color, m.fighters[0].data.color);
+      m.countdown = 0;
+      for (let tick = 0; tick < 10801 && m.winner === null; tick++) {
+        m.difficulty = side === 0 ? level : "medium";
+        const a = m.ai(0);
+        m.difficulty = side === 1 ? level : "medium";
+        const b = m.ai(1);
+        m.tick(1 / 60, [a, b]);
+        m.events = [];
+      }
+      wins += Number(m.winner === side);
+    }
+    scores.push(wins);
+  }
+  assert.ok(scores[0] < scores[1] && scores[1] < scores[2] && scores[2] < scores[3], JSON.stringify(scores));
+  console.log("Wins against Medium, 144 seeded mirror games per tier:", scores);
+});
+
+test("CPU waits for visible history, recovery uses its own state, practice stays passive", () => {
+  for (const level of Object.keys(DIFFICULTIES) as Difficulty[]) {
+    const m = new Match(["gpt", "gpt"], level);
+    m.countdown = 0;
+    m.fighters[0].x = 0; m.fighters[1].x = 1.2;
+    for (let n = 0; n < Math.floor(DIFFICULTIES[level].reaction * 60); n++) {
+      assert.deepEqual({ ...m.ai(1), attack: undefined }, { ...emptyInput(), attack: undefined });
+      m.tick(1 / 60, []);
+    }
+    step(m, 60);
+    const cpu = m.fighters[1];
+    cpu.x = 8.8; cpu.y = -1; cpu.vy = -2; cpu.grounded = false; cpu.jumps = 1;
+    const recover = m.ai(1);
+    assert.equal(recover.move, -1);
+    assert.equal(recover.jump, true);
+    assert.equal(recover.attack, undefined);
+    assert.deepEqual(new Match(["gpt", "gpt"], level, true).ai(1), emptyInput());
+  }
+});
+
+test("every fighter emits distinct skill audio and separate light/heavy attack cues", () => {
+  for (const c of ROSTER) for (const skill of ["light", "heavy", "special", "utility"] as const) {
+    const m = ready(c.id);
+    m.attack(m.fighters[0], skill);
+    const cast = m.events.find((e) => e.type === "cast")!;
+    assert.equal(cast.fighter, c.id);
+    assert.equal(cueForEvent(cast), skill === "light" ? "swing" : skill === "heavy" ? "swing_heavy" : c.id);
+  }
 });

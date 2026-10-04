@@ -401,6 +401,10 @@ export class World {
       let a = this.avatarPool.get(key);
       if (!a) {
         a = createAvatar(fighterAppearance(ids, i), alternate);
+        this.avatarPool.set(key, a);
+      }
+      // P1 can come from the thumbnail pool; add its badge on first arena use too.
+      if (!a.root.getObjectByName(`player-${i + 1}`)) {
         const canvas = document.createElement("canvas");
         canvas.width = 128; canvas.height = 56;
         const ctx = canvas.getContext("2d")!;
@@ -413,7 +417,6 @@ export class World {
         badge.position.set(0, 2.9, 0); badge.scale.set(0.82, 0.36, 1);
         badge.renderOrder = 10;
         a.root.add(badge);
-        this.avatarPool.set(key, a);
       }
       this.scene.add(a.root);
       return a;
@@ -665,16 +668,17 @@ export class World {
         const stamp = mesh(
           group,
           new T.BoxGeometry(1.3, 0.4, 1.3),
-          material("#de865d", 0.4, 0.2),
+          material(color, 0.4, 0.2),
           [0, 2, 0],
         );
         stamp.name = "drop";
         mesh(group, new T.BoxGeometry(0.035, 5, 0.035), mat, [0, 1.5, 0]);
       } else if (brand === "kimi") {
-        let template = this.avatarPool.get("kimi-summon");
+        const key = "kimi-summon-" + color;
+        let template = this.avatarPool.get(key);
         if (!template) {
-          template = createAvatar(character("kimi"));
-          this.avatarPool.set("kimi-summon", template);
+          template = createAvatar({ ...character("kimi"), color }, color !== character("kimi").color);
+          this.avatarPool.set(key, template);
         }
         const cat = template.root.clone(true);
         cat.name = "drop";

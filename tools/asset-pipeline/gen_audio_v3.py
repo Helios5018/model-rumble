@@ -4,22 +4,13 @@ Run from project root: python3 tools/asset-pipeline/gen_audio_v3.py [--process-o
 from pathlib import Path
 import gen_combat_audio as pipeline
 
-pipeline.RAW = pipeline.ROOT / 'scratchpad/audio-v3-raw'
+pipeline.RAW = pipeline.ROOT / 'assets-work/audio-v3/raw'
 pipeline.OUT = pipeline.ROOT / 'game/public/assets/audio/arcade-v3'
 pipeline.STYLE = (
     'Premium playful 3D arena fighter sound design, one isolated game sound. '
     'Immediate transient, warm rounded body, detailed tactile texture, short clean tail. '
     'No voice, no speech, no music bed, no ambience, no harsh piercing treble, no long reverb. '
 )
-# Keep the useful source recordings, with a consistent new master and mix.
-old_specs = pipeline.SPECS.copy()
-pipeline.RAW.mkdir(parents=True, exist_ok=True)
-for name in old_specs:
-    for i in range(1, 4):
-        source = pipeline.ROOT / f'assets-work/audio-v2/raw/{name}_{i}.mp3'
-        dest = pipeline.RAW / source.name
-        if source.exists() and not dest.exists():
-            dest.write_bytes(source.read_bytes())
 
 NEW = {
     'swing': (.5, .24, 'A quick bare-fist swing missing the opponent, close cloth flick and airy whip, no impact.'),

@@ -21,12 +21,11 @@ export function createMelee(root: T.Group, body: T.Group, limbs: T.Object3D[], i
   root.add(effect);
   const ink = new T.MeshBasicMaterial({ color, transparent: true, opacity: 0.85, depthWrite: false, side: T.DoubleSide });
   const white = new T.MeshBasicMaterial({ color: "#fff6df", transparent: true, opacity: 0.9, depthWrite: false });
-  const pieces: T.Mesh[] = [];
   const add = (geo: T.BufferGeometry, x: number, y: number, scale: number[], mat = ink) => {
     const m = new T.Mesh(geo, mat);
     m.position.set(x, y, 0.7);
     m.scale.set(scale[0], scale[1], scale[2]);
-    effect.add(m); pieces.push(m);
+    effect.add(m);
     return m;
   };
   const arc = (r: number, start: number, sweep: number, y = 1) =>
@@ -68,7 +67,7 @@ export function createMelee(root: T.Group, body: T.Group, limbs: T.Object3D[], i
       break;
   }
   const heavyRing = add(new T.RingGeometry(0.65, 0.76, 32), 1.2, 1, [1, 1, 1], white);
-  const rests = limbs.map((l) => ({ position: l.position.clone(), rotation: l.rotation.clone() }));
+  const rests = limbs.map((l) => ({ position: l.position.clone() }));
   return (remaining: number, heavy: boolean, facing: number) => {
     effect.visible = remaining > 0;
     if (!effect.visible) return;
